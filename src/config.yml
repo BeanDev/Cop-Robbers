@@ -1,0 +1,30 @@
+teams:
+  cops:
+    spawns:
+      # The world in which the players spawn
+      world: "world"
+      location:
+        - 0.5
+        - 63.0
+        - 0.5    
+      yaw: "0"
+      pitch: "0"
+  prisoners:
+    spawns:
+      # The world in which the players spawn
+      world: "world"
+      location:
+        - 0.5
+        - 63.0
+        - 0.5    
+      yaw: "0"
+      pitch: "0"
+lobby:
+  spawns:
+    world: "world"
+    location:
+      - 0.5
+      - 63
+      - 0.5
+    yaw: "0"
+    pitch: "0"

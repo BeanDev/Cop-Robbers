@@ -1,0 +1,6 @@
+name: CopsNRobbers
+description: Escape as a prisoner! Stop them as a cop!
+author: BeanMC
+
+version: 0.01
+main: net.azuremc.dev.Main
