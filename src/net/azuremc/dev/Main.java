@@ -22,38 +22,31 @@ public class Main extends JavaPlugin
 	static Main plugin;
 	public static List<Team> teams = new ArrayList<Team>();
 	
+	@SuppressWarnings("unused")
 	public void onEnable()
 	{
 		plugin = this;
 		
 		File configFile = getConfigFile("config.yml");
 		FileConfiguration config = getConfig(configFile);
+		
 		saveDefaultConfig(configFile);
 		
-		List<Location> copSpawns = new ArrayList<Location>();
-		for(int i = 0; i < config.getList("teams.cops.spawns").size(); i++)
-		{
-			copSpawns.add(new Location(Bukkit.getWorld(config.getString("teams.cops.spawns.world")), config.getDoubleList("teams.cops.spawns.location").get(1), config.getDoubleList("teams.cops.spawns.location").get(2), config.getDoubleList("teams.cops.spawns.location").get(3), Float.parseFloat(config.getString("teams.cops.spawns.location.yaw")), Float.parseFloat(config.getString("teams.cops.spawns.location.pitch"))));
-		}
-		Team cops = new Team("cops", copSpawns);
+		Team cops = new Team("cops", null);
+		List<Location> copSpawns = cops.loadSpawns();
+		cops.setSpawns(copSpawns);
 		
-		List<Location> prisonerSpawns = new ArrayList<Location>();
-		for(int i = 0; i < config.getList("teams.prisoners.spawns").size(); i++)
-		{
-			prisonerSpawns.add(new Location(Bukkit.getWorld(config.getString("teams.prisoners.spawns.world")), config.getDoubleList("teams.prisoners.spawns.location").get(1), config.getDoubleList("teams.prisoners.spawns.location").get(2), config.getDoubleList("teams.prisoners.spawns.location").get(3), Float.parseFloat(config.getString("teams.prisoners.spawns.location.yaw")), Float.parseFloat(config.getString("teams.prisoners.spawns.location.pitch"))));
-		}
-		Team prisoners = new Team("prisoners", prisonerSpawns);
+		Team prisoners = new Team("prisoners", null);
+		List<Location> prisonerSpawns = cops.loadSpawns();
+		prisoners.setSpawns(prisonerSpawns);
 		
-		List<Location> lobbySpawns = new ArrayList<Location>();
-		for(int i = 0; i < config.getList("lobby.spawns").size(); i++)
-		{
-			lobbySpawns.add(new Location(Bukkit.getWorld(config.getString("lobby.spawns.world")), config.getDoubleList("lobby.spawns.location").get(1), config.getDoubleList("lobby.spawns.location").get(2), config.getDoubleList("lobby.spawns.location").get(3), Float.parseFloat(config.getString("lobby.spawns.location.yaw")), Float.parseFloat(config.getString("lobby.spawns.location.pitch"))));
-		}
-		Team lobby = new Team("lobby", lobbySpawns);
+		Team lobby = new Team("lobby", null);
+		List<Location> lobbySpawns = cops.loadSpawns();
+		lobby.setSpawns(lobbySpawns);
 		
-		teams.add(1, cops);
-		teams.add(2, prisoners);
-		teams.add(3, lobby);
+		teams.add(cops);
+		teams.add(prisoners);
+		teams.add(lobby);
 		
 		PluginManager pluginManager = Bukkit.getPluginManager();
 		pluginManager.registerEvents(new EventHandler(), this);
